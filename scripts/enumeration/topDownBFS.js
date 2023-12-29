@@ -1,8 +1,15 @@
 import { GRAMMAR_START } from "../lang/index.js";
 const MAX_DEPTH = 15;
 export function topDownBFS(examples) {
+    // ensure examples are not empty, no empty inputs, and all inputs are same length
     if (examples.length === 0)
-        return null;
+        throw "no examples given";
+    if (examples[0].input.length === 0)
+        throw "input length can't be 0";
+    if (examples.find((ex) => ex.input.length !== examples[0].input.length))
+        throw "inputs not same length";
+    if (examples.find((ex) => ex.output === undefined))
+        throw "all examples must have an output";
     const queue = [];
     GRAMMAR_START.forEach((rule) => {
         queue.push({ depth: 0, program: new rule() });
@@ -12,7 +19,7 @@ export function topDownBFS(examples) {
         if (!next)
             return null;
         const { depth, program } = next;
-        console.log(depth, program.toString());
+        // console.log(depth, program.toString())
         const firstHole = findFirstHole(program);
         const isComplete = !firstHole;
         if (isComplete && validateProgram(program, examples)) {

@@ -1,6 +1,7 @@
 {
   "type": "module",
   "scripts": {
+    "dev": "node test-server.cjs",
     "tsc": "tsc"
   },
   "devDependencies": {

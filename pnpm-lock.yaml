@@ -5,19 +5,52 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
-  typescript:
-    specifier: ^5.3.3
-    version: 5.3.3
+  '@types/alpinejs':
+    specifier: ^3.13.5
+    version: 3.13.5
 
 devDependencies:
+  '@leanadmin/alpine-typescript':
+    specifier: ^0.1.25
+    version: 0.1.25
+  alpinejs:
+    specifier: ^3.13.3
+    version: 3.13.3
   prettier:
     specifier: ^3.1.1
     version: 3.1.1
   prettier-plugin-tailwindcss:
     specifier: ^0.5.9
     version: 0.5.9(prettier@3.1.1)
+  typescript:
+    specifier: ^5.3.3
+    version: 5.3.3
 
 packages:
+
+  /@leanadmin/alpine-typescript@0.1.25:
+    resolution: {integrity: sha512-4rv+UA7BbCCZsubI9stt2qsakvPz0m5R6RRnwyUJLBQJjvhcDO/u368eo+5aKIxswb1+D+hjT4aPnCCZl843Ag==}
+    dev: true
+
+  /@types/alpinejs@3.13.5:
+    resolution: {integrity: sha512-BSNTroRhmBkNiyd7ELK/5Boja92hnQMST6H4z1BqXKeMVzHjp9o1j5poqd5Tyhjd8oMFwxYC4I00eghfg2xrTA==}
+    dev: false
+
+  /@vue/reactivity@3.1.5:
+    resolution: {integrity: sha512-1tdfLmNjWG6t/CsPldh+foumYFo3cpyCHgBYQ34ylaMsJ+SNHQ1kApMIa8jN+i593zQuaw3AdWH0nJTARzCFhg==}
+    dependencies:
+      '@vue/shared': 3.1.5
+    dev: true
+
+  /@vue/shared@3.1.5:
+    resolution: {integrity: sha512-oJ4F3TnvpXaQwZJNF3ZK+kLPHKarDmJjJ6jyzVNDKH9md1dptjC7lWR//jrGuLdek/U6iltWxqAnYOu8gCiOvA==}
+    dev: true
+
+  /alpinejs@3.13.3:
+    resolution: {integrity: sha512-WZ6WQjkAOl+WdW/jukzNHq9zHFDNKmkk/x6WF7WdyNDD6woinrfXCVsZXm0galjbco+pEpYmJLtwlZwcOfIVdg==}
+    dependencies:
+      '@vue/reactivity': 3.1.5
+    dev: true
 
   /prettier-plugin-tailwindcss@0.5.9(prettier@3.1.1):
     resolution: {integrity: sha512-9x3t1s2Cjbut2QiP+O0mDqV3gLXTe2CgRlQDgucopVkUdw26sQi53p/q4qvGxMLBDfk/dcTV57Aa/zYwz9l8Ew==}
@@ -81,4 +114,4 @@ packages:
     resolution: {integrity: sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==}
     engines: {node: '>=14.17'}
     hasBin: true
-    dev: false
+    dev: true

@@ -100,7 +100,7 @@ export class Index extends Expr {
         // produce new constant nodes where each value is an index in the input array
         if (holeName !== "idx")
             return [];
-        if (!context.inputLength)
+        if (context.inputLength === undefined)
             throw "index: no inputLength defined";
         const nodes = [];
         for (let i = 0; i < context.inputLength; i++) {

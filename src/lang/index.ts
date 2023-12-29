@@ -114,7 +114,7 @@ export class Index extends Expr {
   produceForHole(holeName: string, context: Context): ASTNode[] {
     // produce new constant nodes where each value is an index in the input array
     if (holeName !== "idx") return []
-    if (!context.inputLength) throw "index: no inputLength defined"
+    if (context.inputLength === undefined) throw "index: no inputLength defined"
     const nodes: IndexConstant[] = []
     for (let i = 0; i < context.inputLength; i++) {
       nodes.push(new IndexConstant(i))

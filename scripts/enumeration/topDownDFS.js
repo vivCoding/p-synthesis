@@ -1,8 +1,13 @@
 import { GRAMMAR_START } from "../lang/index.js";
 const MAX_DEPTH = 15;
 export function topDownDFS(examples) {
+    // ensure examples are not empty, no empty inputs, and all inputs are same length
     if (examples.length === 0)
-        return null;
+        throw "no examples given";
+    if (examples[0].input.length === 0)
+        throw "input length can't be 0";
+    if (examples.find((ex) => ex.input.length !== examples[0].input.length))
+        throw "inputs not same length";
     for (let i = 0; i < GRAMMAR_START.length; i++) {
         const program = new GRAMMAR_START[i]();
         const res = dfs(program, 0, examples);
@@ -12,7 +17,7 @@ export function topDownDFS(examples) {
     return null;
 }
 function dfs(program, depth, examples) {
-    console.log(depth, program.toString());
+    // console.log(depth, program.toString())
     const firstHole = findFirstHole(program);
     const isComplete = !firstHole;
     if (isComplete && validateProgram(program, examples)) {
