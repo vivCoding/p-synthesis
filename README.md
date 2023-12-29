@@ -1,4 +1,4 @@
-# ps
+# program synthesis
 
 learning program synthesis
 
