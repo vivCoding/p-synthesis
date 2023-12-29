@@ -4,12 +4,12 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>PS</title>
     <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
   </head>
   <body class="bg-slate-950 text-white" x-data="myData">
     <div class="m-20 flex flex-col items-center">
-      <h1 class="text-3xl font-bold">Hello</h1>
+      <h1 class="text-3xl font-bold">Program Synthesis</h1>
       <p class="mt-3 italic">Add example input and output</p>
       <table class="mt-10">
         <thead>
@@ -24,7 +24,7 @@
               <td>
                 <input
                   type="text"
-                  class="bg-slate-800 text-center m-1 p-1 rounded-lg hover:bg-slate-700 transition duration-300"
+                  class="bg-slate-800 text-center m-1 p-1 rounded-lg hover:bg-slate-900 transition duration-300"
                   x-bind:value="JSON.stringify(example.input)"
                   x-on:change="editExampleInput(idx, $event.target.value)"
                 />
@@ -32,7 +32,7 @@
               <td>
                 <input
                   type="text"
-                  class="bg-slate-800 text-center m-1 p-1 rounded-lg hover:bg-slate-700 transition duration-300"
+                  class="bg-slate-800 text-center m-1 p-1 rounded-lg hover:bg-slate-900 transition duration-300"
                   x-bind:value="example.output"
                   x-on:change="editExampleResult(idx, $event.target.value)"
                 />
@@ -72,7 +72,7 @@
         <input
           type="number"
           x-model="maxDepth"
-          class="bg-slate-800 text-center m-1 p-1 rounded-lg hover:bg-slate-700 transition duration-300"
+          class="bg-slate-800 text-center m-1 p-1 rounded-lg hover:bg-slate-900 transition duration-300"
           size="10"
         />
       </div>
