@@ -1,8 +1,6 @@
 import { ASTNode, GRAMMAR_START } from "../lang/index.js"
 
-const MAX_DEPTH = 15
-
-export function topDownDFS(examples: ExampleType[]): ASTNode | null {
+export function topDownDFS(examples: ExampleType[], maxDepth = 15): ASTNode | null {
   // ensure examples are not empty, no empty inputs, and all inputs are same length
   if (examples.length === 0) throw "no examples given"
   if (examples[0].input.length === 0) throw "input length can't be 0"
@@ -10,14 +8,14 @@ export function topDownDFS(examples: ExampleType[]): ASTNode | null {
 
   for (let i = 0; i < GRAMMAR_START.length; i++) {
     const program = new GRAMMAR_START[i]()
-    const res = dfs(program, 0, examples)
+    const res = dfs(program, 0, examples, maxDepth)
     if (res) return res
   }
 
   return null
 }
 
-function dfs(program: ASTNode, depth: number, examples: ExampleType[]): ASTNode | null {
+function dfs(program: ASTNode, depth: number, examples: ExampleType[], maxDepth = 15): ASTNode | null {
   // console.log(depth, program.toString())
   const firstHole = findFirstHole(program)
   const isComplete = !firstHole
@@ -28,14 +26,14 @@ function dfs(program: ASTNode, depth: number, examples: ExampleType[]): ASTNode 
     return null
   }
 
-  if (depth > MAX_DEPTH) return null
+  if (depth > maxDepth) return null
 
   const { node, holeName } = firstHole
   const newNodes = node.produceForHole(holeName, { inputLength: examples[0].input.length })
 
   for (let i = 0; i < newNodes.length; i++) {
     node.holes[holeName] = newNodes[i]
-    const res = dfs(program, depth + 1, examples)
+    const res = dfs(program, depth + 1, examples, maxDepth)
     if (res) return res
     node.holes[holeName] = undefined
   }

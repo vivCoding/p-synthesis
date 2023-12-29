@@ -1,6 +1,5 @@
 import { GRAMMAR_START } from "../lang/index.js";
-const MAX_DEPTH = 15;
-export function topDownBFS(examples) {
+export function topDownBFS(examples, maxDepth = 15) {
     // ensure examples are not empty, no empty inputs, and all inputs are same length
     if (examples.length === 0)
         throw "no examples given";
@@ -28,7 +27,7 @@ export function topDownBFS(examples) {
         else if (isComplete) {
             continue;
         }
-        if (depth > MAX_DEPTH)
+        if (depth > maxDepth)
             continue;
         const { node, holeName } = firstHole;
         const newNodes = node.produceForHole(holeName, { inputLength: examples[0].input.length });

@@ -1,8 +1,6 @@
 import { ASTNode, GRAMMAR_START } from "../lang/index.js"
 
-const MAX_DEPTH = 15
-
-export function topDownBFS(examples: ExampleType[]): ASTNode | null {
+export function topDownBFS(examples: ExampleType[], maxDepth = 15): ASTNode | null {
   // ensure examples are not empty, no empty inputs, and all inputs are same length
   if (examples.length === 0) throw "no examples given"
   if (examples[0].input.length === 0) throw "input length can't be 0"
@@ -29,7 +27,7 @@ export function topDownBFS(examples: ExampleType[]): ASTNode | null {
       continue
     }
 
-    if (depth > MAX_DEPTH) continue
+    if (depth > maxDepth) continue
 
     const { node, holeName } = firstHole
     const newNodes = node.produceForHole(holeName, { inputLength: examples[0].input.length })

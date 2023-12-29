@@ -20,21 +20,30 @@ document.addEventListener("alpine:init", () => {
   // @ts-ignore
   Alpine.data("myData", () => ({
     examples: initialExamples,
+    maxDepth: 15,
     program: undefined as ASTNode | null | undefined,
     output: "None",
     addExample() {
       this.examples.push({ input: [], output: 0 })
     },
     editExampleInput(idx: number, newInput: string) {
-      const parsedInput = JSON.parse(newInput)
-      if (Array.isArray(parsedInput) && parsedInput.length > 0 && parsedInput.every((v) => typeof v === "number")) {
-        this.examples[idx].input = parsedInput
+      try {
+        const parsedInput = JSON.parse(newInput)
+        if (Array.isArray(parsedInput) && parsedInput.length > 0 && parsedInput.every((v) => typeof v === "number")) {
+          this.examples[idx].input = parsedInput
+        }
+      } catch (e) {
+        this.examples[idx].input = []
       }
     },
     editExampleResult(idx: number, newResult: string) {
-      const parsedInput = JSON.parse(newResult)
-      if (typeof parsedInput === "number") {
-        this.examples[idx].output = parsedInput
+      try {
+        const parsedInput = JSON.parse(newResult)
+        if (typeof parsedInput === "number") {
+          this.examples[idx].output = parsedInput
+        }
+      } catch (e) {
+        this.examples[idx].output = undefined
       }
     },
     removeExample(idx: number) {
@@ -43,7 +52,7 @@ document.addEventListener("alpine:init", () => {
     generate() {
       this.output = "..."
       try {
-        this.program = topDownBFS(this.examples)
+        this.program = topDownBFS(this.examples, this.maxDepth)
         if (!this.program) {
           this.output = "no program found in time"
         } else {
