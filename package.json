@@ -1,6 +1,11 @@
 {
   "type": "module",
   "source": "pages/index.html",
+  "targets": {
+    "default": {
+      "publicUrl": "./"
+    }
+  },
   "scripts": {
     "dev": "parcel serve -p 3000",
     "build": "parcel build"
