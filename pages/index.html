@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PS</title>
-    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body class="bg-slate-950 text-white" x-data="myData">
+  <body class="bg-slate-950 text-white" x-data="psData">
     <div class="m-20 flex flex-col items-center">
       <h1 class="text-3xl font-bold">Program Synthesis</h1>
       <p class="mt-3 italic">Add example input and output</p>
@@ -24,7 +24,7 @@
               <td>
                 <input
                   type="text"
-                  class="bg-slate-800 text-center m-1 p-1 rounded-lg hover:bg-slate-900 transition duration-300 focus:bg-slate-900"
+                  class="m-1 rounded-lg bg-slate-800 p-1 text-center transition duration-300 hover:bg-slate-900 focus:bg-slate-900"
                   x-bind:value="JSON.stringify(example.input)"
                   x-on:change="editExampleInput(idx, $event.target.value)"
                 />
@@ -32,7 +32,7 @@
               <td>
                 <input
                   type="text"
-                  class="bg-slate-800 text-center m-1 p-1 rounded-lg hover:bg-slate-900 transition duration-300 focus:bg-slate-900"
+                  class="m-1 rounded-lg bg-slate-800 p-1 text-center transition duration-300 hover:bg-slate-900 focus:bg-slate-900"
                   x-bind:value="example.output"
                   x-on:change="editExampleResult(idx, $event.target.value)"
                 />
@@ -41,7 +41,7 @@
                 <button
                   title="Remove"
                   x-on:click="removeExample(idx)"
-                  class="bg-red-950 p-2 rounded-lg hover:bg-slate-900 transition duration-300"
+                  class="rounded-lg bg-red-950 p-2 transition duration-300 hover:bg-slate-900"
                 >
                   <svg
                     class="lucide lucide-trash-2 text-red-500"
@@ -72,7 +72,7 @@
         <input
           type="number"
           x-model="maxDepth"
-          class="bg-slate-800 text-center m-1 p-1 rounded-lg hover:bg-slate-900 transition duration-300 focus:bg-slate-900"
+          class="m-1 rounded-lg bg-slate-800 p-1 text-center transition duration-300 hover:bg-slate-900 focus:bg-slate-900"
           size="10"
         />
       </div>
@@ -80,24 +80,22 @@
       <div class="mt-3 flex flex-row items-center justify-center space-x-2">
         <button
           x-on:click="addExample()"
-          class="bg-slate-600 block duration-300 hover:bg-slate-800 transition px-3 py-2 rounded-lg font-semibold"
+          class="block rounded-lg bg-slate-600 px-3 py-2 font-semibold transition duration-300 hover:bg-slate-800"
         >
           Add Example
         </button>
         <button
           x-on:click="generate()"
-          class="bg-blue-500 duration-300 hover:bg-blue-900 transition px-3 py-2 rounded-lg font-semibold"
+          class="rounded-lg bg-blue-500 px-3 py-2 font-semibold transition duration-300 hover:bg-blue-900"
         >
           Generate
         </button>
       </div>
       <div class="mt-5">
         <h6 class="text-center font-semibold">Output:</h6>
-        <code x-text="output" class="block mt-2 text-center"></code>
+        <code x-text="output" class="mt-2 block text-center"></code>
       </div>
     </div>
   </body>
-  <script type="module" src="./scripts/synthesis.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
-  <script src="./scripts/index.js"></script>
+  <script type="module" src="/src/index.ts"></script>
 </html>

@@ -1,4 +1,4 @@
-import { ASTNode, Term } from "../lang/index.js"
+import { ASTNode, Term } from "@/lang"
 
 export function printAST(program: ASTNode) {
   console.log(program.nodeName)

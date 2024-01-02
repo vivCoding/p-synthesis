@@ -1,3 +1,7 @@
+import Alpine from "alpinejs"
+import { topDownBFS } from "./enumeration/topDownBFS"
+import { ASTNode } from "./lang"
+
 const initialExamples: ExampleType[] = [
   {
     input: [5, 2, 1],
@@ -11,14 +15,8 @@ const initialExamples: ExampleType[] = [
 
 document.addEventListener("alpine:init", () => {
   console.log("yooo")
-  // TODO add proper typign to globals
-  const w: any = window
-  const topDownBFS = w.topDownBFS
-  const topDownDFS = w.topDownDFS
-  type ASTNode = any
 
-  // @ts-ignore
-  Alpine.data("myData", () => ({
+  Alpine.data("psData", () => ({
     examples: initialExamples,
     maxDepth: 15,
     program: undefined as ASTNode | null | undefined,
@@ -65,3 +63,7 @@ document.addEventListener("alpine:init", () => {
     },
   }))
 })
+
+// after adding alpine event listener, start alpine
+window.Alpine = Alpine
+Alpine.start()

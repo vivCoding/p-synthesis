@@ -1,4 +1,4 @@
-import { ASTNode, GRAMMAR_START } from "../lang/index.js"
+import { ASTNode, GRAMMAR_START } from "@/lang"
 
 export function topDownDFS(examples: ExampleType[], maxDepth = 15): ASTNode | null {
   // ensure examples are not empty, no empty inputs, and all inputs are same length
