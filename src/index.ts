@@ -1,26 +1,105 @@
 import Alpine from "alpinejs"
 import { topDownBFS } from "./enumeration/topDownBFS"
-import { ASTNode } from "./lang"
+import { topDownDFS } from "./enumeration/topDownDFS"
+import { ASTNode } from "./lang/impl"
 
-const initialExamples: ExampleType[] = [
-  {
-    input: [5, 2, 1],
-    output: 10,
-  },
-  {
-    input: [3, 4, 6],
-    output: 2,
-  },
+const initialExamples: ExampleType[][] = [
+  // (arr[0] * arr[1]) / arr[2]
+  [
+    {
+      input: [1, 1, 1],
+      output: 3,
+    },
+    {
+      input: [1, 2, 3],
+      output: 6,
+    },
+    {
+      input: [4, 5, 6],
+      output: 15,
+    },
+  ],
+  // (arr[0] * arr[1]) / arr[2]
+  [
+    {
+      input: [5, 2, 1],
+      output: 10,
+    },
+    {
+      input: [3, 4, 6],
+      output: 2,
+    },
+  ],
+  // arr[(arr[0] + arr[2])] * arr[1]
+  [
+    {
+      input: [1, 0, 1],
+      output: 0,
+    },
+    {
+      input: [1, 5, 1],
+      output: 5,
+    },
+    {
+      input: [1, 5, 0],
+      output: 25,
+    },
+  ],
+  // could be arr[arr[0] + arr[2]]
+  [
+    {
+      input: [1, 0, 1],
+      output: 1,
+    },
+    {
+      input: [0, 0, 2],
+      output: 2,
+    },
+    {
+      input: [1, 0, 0],
+      output: 0,
+    },
+    {
+      input: [0, 0, 1],
+      output: 0,
+    },
+    {
+      input: [0, 0, 0],
+      output: 0,
+    },
+    {
+      input: [0, 1, 0],
+      output: 0,
+    },
+  ],
 ]
 
 document.addEventListener("alpine:init", () => {
   console.log("yooo")
 
   Alpine.data("psData", () => ({
-    examples: initialExamples,
+    initialExamples,
+    examples: initialExamples[1],
     maxDepth: 15,
     program: undefined as ASTNode | null | undefined,
     output: "None",
+
+    currentAlgo: "topDownBFS",
+    algorithms: {
+      topDownBFS: {
+        name: "Top Down BFS",
+        program: topDownBFS,
+      },
+      topDownDFS: {
+        name: "Top Down DFS",
+        program: topDownDFS,
+      },
+      bottomUp: {
+        name: "Bottom Up",
+        program: topDownDFS,
+      },
+    } as Record<string, { name: string; program: (examples: ExampleType[], ...args: any[]) => ASTNode | null }>,
+
     addExample() {
       this.examples.push({ input: [], output: 0 })
     },
@@ -50,7 +129,7 @@ document.addEventListener("alpine:init", () => {
     generate() {
       this.output = "..."
       try {
-        this.program = topDownBFS(this.examples, this.maxDepth)
+        this.program = this.algorithms[this.currentAlgo].program(this.examples, this.maxDepth)
         if (!this.program) {
           this.output = "no program found in time"
         } else {
@@ -60,6 +139,9 @@ document.addEventListener("alpine:init", () => {
         console.error(e)
         this.output = `${e}`
       }
+    },
+    useInitialExample(idx: number) {
+      this.examples = this.initialExamples[idx]
     },
   }))
 })

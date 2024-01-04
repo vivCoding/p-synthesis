@@ -1,11 +1,8 @@
 import { ASTNode, GRAMMAR_START } from "@/lang"
+import { validateExamples } from "@/utils/misc"
 
 export function topDownBFS(examples: ExampleType[], maxDepth = 15): ASTNode | null {
-  // ensure examples are not empty, no empty inputs, and all inputs are same length
-  if (examples.length === 0) throw "no examples given"
-  if (examples[0].input.length === 0) throw "input length can't be 0"
-  if (examples.find((ex) => ex.input.length !== examples[0].input.length)) throw "inputs not same length"
-  if (examples.find((ex) => ex.output === undefined)) throw "all examples must have an output"
+  validateExamples(examples)
 
   const queue: { depth: number; program: ASTNode }[] = []
   GRAMMAR_START.forEach((rule) => {
@@ -16,8 +13,6 @@ export function topDownBFS(examples: ExampleType[], maxDepth = 15): ASTNode | nu
     const next = queue.shift()
     if (!next) return null
     const { depth, program } = next
-
-    // console.log(depth, program.toString())
 
     const firstHole = findFirstHole(program)
     const isComplete = !firstHole

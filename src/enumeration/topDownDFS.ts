@@ -1,10 +1,8 @@
 import { ASTNode, GRAMMAR_START } from "@/lang"
+import { validateExamples } from "@/utils/misc"
 
 export function topDownDFS(examples: ExampleType[], maxDepth = 15): ASTNode | null {
-  // ensure examples are not empty, no empty inputs, and all inputs are same length
-  if (examples.length === 0) throw "no examples given"
-  if (examples[0].input.length === 0) throw "input length can't be 0"
-  if (examples.find((ex) => ex.input.length !== examples[0].input.length)) throw "inputs not same length"
+  validateExamples(examples)
 
   for (let i = 0; i < GRAMMAR_START.length; i++) {
     const program = new GRAMMAR_START[i]()
@@ -16,7 +14,6 @@ export function topDownDFS(examples: ExampleType[], maxDepth = 15): ASTNode | nu
 }
 
 function dfs(program: ASTNode, depth: number, examples: ExampleType[], maxDepth = 15): ASTNode | null {
-  // console.log(depth, program.toString())
   const firstHole = findFirstHole(program)
   const isComplete = !firstHole
 
